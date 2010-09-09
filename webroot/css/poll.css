@@ -1,0 +1,33 @@
+#poll fieldset{
+	border: none;	
+}
+#poll label {
+	margin: 5px;
+}
+#poll input .radio {
+	margin: 5px;
+	vertical-align: middle;
+}
+#poll {
+	border:1px solid #CCCCCC;
+	padding:15px;
+	width:90%;
+}
+#poll li{
+	list-style: none;
+}
+#poll li.label {
+	border-top:1px solid #999999;
+	font-style:italic;
+	font-weight:bold;
+	margin:5px 0 2px;
+	padding:5px 0 0;
+}
+#poll li.item  {
+	background-color:#FF007F;
+	color:#FFFFFF;
+	height:18px;
+	line-height:20px;
+	padding:3px;
+	width:0%;
+}
