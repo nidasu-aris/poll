@@ -39,11 +39,9 @@ class PollAnswersController extends AppController {
 
     function beforeFilter() {
         parent::beforeFilter();
-
         if (isset($this->params['named']['poll']) && $this->params['named']['poll'] != null) {
             $poll = $this->params['named']['poll'];
             $this->pollId = $poll;
-            
         } else {
             $poll = '';
             $this->pollId = $poll;
