@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS `polls` (
   `slug` varchar(255) collate utf8_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL default '0',
   `created` datetime NOT NULL,
-  `description` datetime NOT NULL,
-  `remarks` text collate utf8_unicode_ci,
+  `modified` datetime NOT NULL,
+  `description` text collate utf8_unicode_ci,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `alias` (`slug`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -31,6 +31,8 @@ CREATE TABLE IF NOT EXISTS `poll_answers` (
   `lft` int(11) NOT NULL,
   `rght` int(11) NOT NULL,
   `color` varchar(6) NOT NULL default '333333',
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -45,5 +47,7 @@ CREATE TABLE IF NOT EXISTS `poll_votes` (
   `poll_id` int(11) NOT NULL,
   `poll_answer_id` int(11) NOT NULL,
   `vote` int(11) NOT NULL default '0',
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

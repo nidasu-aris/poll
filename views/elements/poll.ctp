@@ -1,6 +1,5 @@
 <?php
 	if(isset($polls_for_layout['Poll']['id'])){
-
     $b = $block['Block'];
     $class = 'block block-' . $b['alias'];
     if ($block['Block']['class'] != null) {
@@ -37,7 +36,7 @@
 					'legend' => false, 
 					'label' => true, 
 					'type' => 'radio', 
-					'options' => $poll['reply']
+					'options' => $poll['answers']
 					)); 
 			   echo '</fieldset>';
 			   echo $form->input('token_key', array(

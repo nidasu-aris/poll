@@ -16,7 +16,7 @@
  *
  * This plugin's Poll component will be loaded in ALL controllers.
  */
-    Croogo::hookComponent('*', 'Poll.Poll');
+    Croogo::hookComponent('*', 'Poll.Polls');
 /**
  * Helper
  *
