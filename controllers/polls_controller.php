@@ -27,10 +27,6 @@ class PollsController extends AppController {
  */
     var $uses = array('Poll.Poll','Poll.PollAnswer','Poll.PollVote');
 
-    function beforeFilter() {
-        parent::beforeFilter();
-    }
-
     function admin_index() {
         $this->set('title_for_layout', __('Polls', true));
 
