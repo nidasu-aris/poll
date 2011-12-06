@@ -1,5 +1,5 @@
 <?php
-	echo $html->css('/poll/css/poll', NULL, array('inline' => FALSE));
+	echo $this->Html->css('/poll/css/poll', NULL, array('inline' => FALSE));
 ?>
 <div class="polls">
 
@@ -15,7 +15,7 @@
 		<p><?php echo $poll['Poll']['description']; ?></p>
 		<ul id="poll">
 			<li>
-				<?php echo sprintf(__('Total votes %s, published %s', TRUE), $total,  $time->format(Configure::read('Comment.date_time_format'), $poll['Poll']['created'], null, Configure::read('Site.timezone'))); ?>
+				<?php echo __('Total votes %s, published %s', $total,  $this->Time->format(Configure::read('Comment.date_time_format'), $poll['Poll']['created'], null, Configure::read('Site.timezone'))); ?>
 			</li>
 		<?php
 			foreach($poll['PollAnswer'] as $key => $val){
@@ -39,12 +39,12 @@
 		<?php foreach($other as $p){
 				if($p['Poll']['id'] != $poll['Poll']['id']){
 					echo '<li>';
-					echo $html->link($p['Poll']['question'], Router::url(array(
+					echo $this->Html->link($p['Poll']['question'], array(
 						'plugin' => 'poll',
 						'controller' => 'poll_votes', 
 						'action' => 'index',
-						$p['Poll']['slug']
-					)));
+						'slug' => $p['Poll']['slug']
+					));
 					echo '</li>';
 				}
 		}

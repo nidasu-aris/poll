@@ -11,8 +11,7 @@
 * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
 * @link     http://www.demoveo.org
 */
-class PollsComponent extends Object 
-{
+class PollsComponent extends Component	{
     /**
     * Called after the Controller::beforeFilter() and before the controller action
     *
@@ -34,7 +33,7 @@ class PollsComponent extends Object
         // Admin menu: admin_menu element of Poll plugin will be shown in admin panel's navigation
         Configure::write('Admin.menus.poll', 1);
 
-        $polls = ClassRegistry::init('Poll')->find('all', array(
+        $polls = ClassRegistry::init('Poll.Poll')->find('all', array(
         'conditions' => array(
             'Poll.status' => 1
             )
@@ -44,9 +43,9 @@ class PollsComponent extends Object
 
         if(count($polls) > 0){
 
-            if(isset($this->params['named']['slug'])){
+            if(isset($this->request->params['named']['slug'])){
                 for($i=0; $i<=$brojUk; $i++){
-                    if($polls[$i]['Poll']['slug'] == $this->params['named']['slug']){
+                    if($polls[$i]['Poll']['slug'] == $this->request->params['named']['slug']){
                         $idPoll = $i;
                         break;
                     }
@@ -57,7 +56,7 @@ class PollsComponent extends Object
 
             $poll = $polls[$idPoll];					
 
-            $poll['answers'] = ClassRegistry::init('PollAnswer')->find('list', array(
+            $poll['answers'] = ClassRegistry::init('Poll.PollAnswer')->find('list', array(
             'conditions' => array(
                 'PollAnswer.poll_id' => $poll['Poll']['id'],
                 ),

@@ -18,7 +18,7 @@
 			<p><?php echo $poll['Poll']['description']; ?></p>
 			
 		    <?php
-		        echo $form->create('PollVotes', array(
+		        echo $this->Form->create('PollVotes', array(
 		            'url' => array(
 						'plugin' => 'poll',
 		                'controller' => 'poll_votes',
@@ -26,10 +26,10 @@
 		            )
 		        ));
 				
-		       echo $form->hidden('PollVote.poll_id', array('value' => $poll['Poll']['id']));
+		       echo $this->Form->hidden('PollVote.poll_id', array('value' => $poll['Poll']['id']));
 			   
 			   echo '<fieldset>';
-		       echo $form->input('PollVote.poll_answer_id', array(
+		       echo $this->Form->input('PollVote.poll_answer_id', array(
 			   		'div' => 'radiopoll', 
 					'separator' => '<br />',  
 					'after' => '<br /><br />', 
@@ -39,11 +39,11 @@
 					'options' => $poll['answers']
 					)); 
 			   echo '</fieldset>';
-			   echo $form->input('token_key', array(
-		            'type' => 'hidden',
-		            'value' => $this->params['_Token']['key'],
-		        ));
-		       echo $form->end(array('label' => __('Vote', true)));
+		//	   echo $this->Form->input('token_key', array(
+		  //          'type' => 'hidden',
+		    //        'value' => $this->request->params['_Token']['key'],
+		      //  ));
+		       echo $this->Form->end(__('Vote'));
 		    ?>			
 		</div>    				
 </div>

@@ -1,4 +1,6 @@
 <?php
+
+App::uses('PollAppModel', 'Poll.Model');
 /**
  * PollVote
  *
@@ -11,7 +13,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.webzy.in
  */
-class PollVote extends AppModel {
+class PollVote extends PollAppModel {
 /**
  * Model name
  *
@@ -19,6 +21,8 @@ class PollVote extends AppModel {
  * @access public
  */
     var $name = 'PollVote';
+
+	var $useDbConfig = 'polling';
 	
 	var $validate = array(
         'vote' => array(
@@ -55,5 +59,28 @@ class PollVote extends AppModel {
                                 'order' => ''
             )
     );
+
+	var $hasMany = array(
+		'PollLog' => array(
+			'className' => 'Poll.PollLog',
+			'foreignKey' => 'poll_id',
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			)
+		);
+
+	function saveLog($pollId, $pollAnswerId, $ip, $ua) {
+		$Log = ClassRegistry::init('Poll.PollLog');
+		$data = array(
+			'poll_id' => $pollId,
+			'poll_answer_id' => $pollAnswerId,
+			'ip_address' => $ip,
+			'user_agent' => $ua,
+		);
+		$Log->save($data);	
+	}
 }
 ?>

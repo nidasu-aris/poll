@@ -1,5 +1,5 @@
 <?php
-	echo $html->css('/poll/css/poll', NULL, array('inline' => FALSE));
+	echo $this->Html->css('/poll/css/poll', NULL, array('inline' => FALSE));
 ?>
 <div class="polls">
 
@@ -15,7 +15,7 @@
 		<p><?php echo $poll['Poll']['description']; ?></p>
 		<div id="poll">
 		 <?php
-        echo $form->create('PollVotes', array(
+        echo $this->Form->create('PollVotes', array(
             'url' => array(
                 'controller' => 'poll_votes',
                 'action' => 'add'
@@ -23,9 +23,9 @@
 			'class' => 'yform'
         ));
 		
-       echo $form->hidden('PollVote.poll_id', array('value' => $anketa['Poll']['id']));
+       echo $this->Form->hidden('PollVote.poll_id', array('value' => $poll['Poll']['id']));
 	  
-	   echo $form->input('PollVote.poll_answer_id', array(
+	   echo $this->Form->input('PollVote.poll_answer_id', array(
 	   		'div' => 'radiopoll', 
 			'separator' => '<br />',  
 			'after' => '<br /><br />', 
@@ -34,12 +34,12 @@
 			'type' => 'radio', 
 			'options' => $reply
 	    ));
-		echo $form->input('token_key', array(
+		echo $this->Form->input('token_key', array(
 		            'type' => 'hidden',
-		            'value' => $this->params['_Token']['key'],
+		            'value' => $this->request->params['_Token']['key'],
 		        ));
 	
-       echo $form->end( __('Vote', true));
+       echo $this->Form->end( __('Vote'));
 	   ?>
 		</div>
 		<br />
@@ -56,12 +56,12 @@
 		<?php foreach($other as $p){
 				if($p['Poll']['id'] != $poll['Poll']['id']){
 					echo '<li>';
-					echo $html->link($p['Poll']['pitanje'],Router::url(array(
+					echo $this->Html->link($p['Poll']['question'], array(
 						'plugin' => 'poll',
 						'controller' => 'poll_votes', 
 						'action' => 'index',
-						$p['Poll']['slug']
-					)));
+						'slug' => $p['Poll']['slug']
+					));
 					echo '</li>';
 				}
 		}

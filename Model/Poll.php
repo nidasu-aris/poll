@@ -1,4 +1,6 @@
 <?php
+
+App::uses('PollAppModel', 'Poll.Model');
 /**
  * PollModel
  *
@@ -11,7 +13,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.webzy.in
  */
-class Poll extends AppModel {
+class Poll extends PollAppModel {
 /**
  * Model name
  *
@@ -19,6 +21,8 @@ class Poll extends AppModel {
  * @access public
  */
     var $name = 'Poll';
+
+	var $useDbConfig = 'polling';
 	
 	
     var $validate = array(

@@ -1,4 +1,6 @@
 <?php
+
+App::uses('PollAppModel', 'Poll.Model');
 /**
  * PollAnswer
  *
@@ -11,7 +13,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.webzy.in
  */
-class PollAnswer extends AppModel {
+class PollAnswer extends PollAppModel {
 /**
  * Model name
  *
@@ -19,13 +21,15 @@ class PollAnswer extends AppModel {
  * @access public
  */
     var $name = 'PollAnswer';
+
+	var $useDbConfig = 'polling';
 	
 	var $actsAs = array(
         'Tree'
     );
 	
     var $validate = array(
-        'naziv' => array(
+        'title' => array(
             'rule' => 'notEmpty',
             'message' => 'Title could not be empty.',
         )
