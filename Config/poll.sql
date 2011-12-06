@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `polls` (
   `description` text collate utf8_unicode_ci,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `alias` (`slug`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 -- --------------------------------------------------------
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `poll_answers` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -50,4 +50,16 @@ CREATE TABLE IF NOT EXISTS `poll_votes` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+CREATE TABLE IF NOT EXISTS `poll_logs` (
+  `id` int(11) NOT NULL auto_increment,
+  `poll_id` int(11) NOT NULL,
+  `poll_answer_id` int(11) NOT NULL,
+  `ip_address` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `user_agent` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
