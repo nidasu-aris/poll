@@ -11,7 +11,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.webzy.in
  */
-class PollsController extends AppController {
+class PollsController extends PollAppController {
 /**
  * Controller name
  *
@@ -37,12 +37,12 @@ class PollsController extends AppController {
 
     function admin_add() {
     	$this->set('title_for_layout', __('Add poll', true));
-        if (!empty($this->data)) {
+        if (!empty($this->request->data)) {
             $this->Poll->create();
-			if(empty($this->data['Poll']['slug'])){
-				$this->data['Poll']['slug'] = $this->__make_slug($this->data['Poll']['question']);
+			if(empty($this->request->data['Poll']['slug'])){
+				$this->request->data['Poll']['slug'] = $this->__make_slug($this->data['Poll']['question']);
 			}			
-            if ($this->Poll->save($this->data)) {
+            if ($this->Poll->save($this->request->data)) {
                 $this->Session->setFlash(__('Poll is saved.', true));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -53,27 +53,25 @@ class PollsController extends AppController {
 
     function admin_edit($id = null) {
     	$this->set('title_for_layout', __('Edit poll', true));
-        if (!$id && empty($this->data)) {
+        if (!$id && empty($this->request->data)) {
             $this->Session->setFlash(__('Invalid poll.', true));
             $this->redirect(array('action' => 'index'));
         }
-        if (!empty($this->data)) {
-        	if(empty($this->data['Poll']['slug'])){
-				$this->data['Poll']['slug'] = $this->__make_slug($this->data['Poll']['question']);
+        if (!empty($this->request->data)) {
+			if(empty($this->request->data['Poll']['slug'])){
+				$this->request->data['Poll']['slug'] = $this->__make_slug($this->data['Poll']['question']);
 			}
-            if ($this->Poll->save($this->data)) {
-                $this->Session->setFlash(__('Poll is saved.', true));
-                $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('Poll could not be saved. Please try again.', true));
-            }
-        }
-        if (empty($this->data)) {
-            $this->data = $this->Poll->read(null, $id);
-        }
-        
-    }
-
+		if ($this->Poll->save($this->request->data)) {
+			$this->Session->setFlash(__('Poll is saved.', true));
+			$this->redirect(array('action' => 'index'));
+		} else {
+			$this->Session->setFlash(__('Poll could not be saved. Please try again.', true));
+			}
+		}
+		if (empty($this->request->data)) {
+			$this->request->data = $this->Poll->read(null, $id);
+		}
+	}
     
     function admin_delete($id = null) {
         if (!$id) {
@@ -114,4 +112,3 @@ class PollsController extends AppController {
 		return trim(stripslashes($str));
 	}   
 }
-?>

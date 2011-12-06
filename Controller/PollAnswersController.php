@@ -11,7 +11,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.webzy.in
  */
-class PollAnswersController extends AppController {
+class PollAnswersController extends PollAppController {
 /**
  * Controller name
  *
@@ -66,15 +66,16 @@ class PollAnswersController extends AppController {
 				'PollAnswer.poll_id' => $this->pollId
 			)
 		));
+		$this->set('answersTree', $this->paginate());
         $this->set(compact('answersTree'));
     }
 
     function admin_add() {
 		$this->set('title_for_layout', __('Add answer', true));
 
-        if (!empty($this->data)) {
+        if (!empty($this->request->data)) {
             $this->PollAnswer->create();
-            if ($this->PollAnswer->save($this->data)) {
+            if ($this->PollAnswer->save($this->request->data)) {
                 $this->Session->setFlash(__('Answer is saved.', true));
                 $this->redirect(array('action'=>'index', 'poll' => $this->pollId));
             } else {
@@ -93,21 +94,21 @@ class PollAnswersController extends AppController {
     function admin_edit($id = null) {
 		$this->set('title_for_layout', __('Edit answer', true));
 
-        if (!$id && empty($this->data)) {
+        if (!$id && empty($this->request->data)) {
             $this->Session->setFlash(__('Invalid answer.', true));
             $this->redirect(array('action'=>'index', 'poll' => $this->pollId));
         }
-        if (!empty($this->data)) {
-           if ($this->PollAnswer->save($this->data)) {
+        if (!empty($this->request->data)) {
+           if ($this->PollAnswer->save($this->request->data)) {
                 $this->Session->setFlash(__('Answer is saved.', true));
                 $this->redirect(array('action'=>'index', 'poll' => $this->pollId));
             } else {
                 $this->Session->setFlash(__('Answer could not be saved. Please try again..', true));
             }
         }
-        if (empty($this->data)) {
-            $data = $this->PollAnswer->read(null, $id);     
-			$this->data = $data;       
+        if (empty($this->request->data)) {
+            $data = $this->PollAnswer->read(null, $id);
+			$this->request->data = $data;
         }
         $polls = $this->PollAnswer->Poll->find('list', array(
 			'fields' => array(
@@ -150,9 +151,9 @@ class PollAnswersController extends AppController {
     }
 
     function admin_process() {
-        $action = $this->data['PollAnswer']['action'];
+        $action = $this->request->data['PollAnswer']['action'];
         $ids = array();
-        foreach ($this->data['PollAnswer'] AS $id => $value) {
+        foreach ($this->request->data['PollAnswer'] AS $id => $value) {
             if ($id != 'action' && $value['id'] == 1) {
                 $ids[] = $id;
             }
@@ -182,4 +183,3 @@ class PollAnswersController extends AppController {
     }
 
 }
-?>
