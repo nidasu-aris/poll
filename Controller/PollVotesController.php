@@ -232,12 +232,4 @@ class PollVotesController extends PollAppController {
 		$this->PollVote->saveLog($pollId, $pollAnswerId, $ip, $ua);
 	}
 
-	function _setupSessionInfo() {
-		if (!$this->Session->check('SessionInfo.start')) {
-			$this->Session->write('SessionInfo.start', date('Y-m-d H:i:s'));
-			$this->Session->write('SessionInfo.ip', env('REMOTE_ADDR'));
-			$this->Session->write('SessionInfo.user_agent', env('HTTP_USER_AGENT'));
-		}
-	}
-
 }
